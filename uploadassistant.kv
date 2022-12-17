@@ -1,0 +1,94 @@
+#main layout
+<mainLayout>: 
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text:''
+            size_hint_y: 0.8
+        Label:
+            text:''
+
+        #input layout
+        BoxLayout: 
+            orientation: 'vertical'
+            pos_hint: {'x': 0.25, 'y': 0.1}
+            TextInput: 
+                id: username
+                multiline: False
+                focus: True
+                hint_text:'Username for helios account'
+                size_hint_y:0.2
+                size_hint_x:0.5
+                on_text: root.usernameInput()
+            Label:
+                text:''
+                size_hint_y:0.1
+            TextInput:
+                id: password
+                multiline: False
+                hint_text:'Password for helios account'
+                size_hint_y:0.2
+                size_hint_x:0.5
+                on_text: root.passwordInput()
+                password: True
+            Label:
+                text:''
+                size_hint_y:0.2
+        #label for.. space ?
+        Label:
+            text:''
+        #button layout
+        BoxLayout:
+            pos_hint:{'x': 0, 'y': 0.7}
+            orientation: 'horizontal'
+            Button:
+                text: 'Select folder'
+                size_hint_x:0.3
+                size_hint_y:0.3
+                on_press: 
+                    app.chooseFolderScreen()
+            Button:
+                text: 'Upload'
+                size_hint_x:0.3
+                size_hint_y:0.3
+                on_press:
+                    root.uploadBtn()
+
+
+
+<Filechooser>:
+     
+    button: button
+ 
+    # Providing the orientation
+    orientation: 'vertical'
+ 
+    # Creating the File list / icon view
+     
+    BoxLayout:
+ 
+ 
+        # Creating Icon view other side
+        FileChooserIconView:
+            canvas.before:
+                Color:
+                    rgb: .5, .4, .5
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            on_selection: root.select(*args)
+            dirselect: True
+ 
+    # Adding button
+    Button:
+        id: button
+        size_hint_y: .1
+        canvas.before:
+            Color:
+                rgb: .5, .5, .4
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        on_press: 
+            root.selected(*args)
+            app.mainLayoutScreen()
